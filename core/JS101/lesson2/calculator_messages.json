@@ -1,0 +1,26 @@
+{
+  "en": {
+  "welcome" : "Welcome to Calculator", 
+  "pickLanguage" : "Pick a language:\nEnter'en'for English\nEnter 'fr' for French",
+  "invalidLanguage" : "Please enter valid language",
+  "firstNumber" : "Enter first number",
+  "secondNumber" : "Enter second number", 
+  "operation" : "Enter an operation:\nEnter '*' for multiply\nEnter '+' for plus\nEnter '-' for minus\nEnter '/' for divide",
+  "invalidNumber" : "Enter a valid number", 
+  "invalidOperation" : "Enter a valid operation:\nEnter '*' for multiply\nEnter '+' for plus\nEnter '-' for minus\nEnter '/' for divide",
+  "newCal" : "Start a new calculation:\nEnter 'y' for yes\nEnter 'n' for no", 
+  "invalidNewCal" : "Enter a valid input:\nEnter 'y' for yes\nEnter 'n' for no"
+  },
+  "fr": {
+    "welcome" : "Bienvenue dans Calculator", 
+    "pickLanguage" : "Choisir une langue\nEntrez 'en' pour l'anglais\nEntrez 'fr' pour Français",
+    "invalidLanguage" : "Veuillez saisir une langue valide",
+    "firstNumber" : "Entrez le premier numéro",
+    "secondNumber" : "Entrez se deuxième numéro", 
+    "operation" : "Entrer une opération:\nEntrez '*' pour multiplier\nEntrez '+' pour plus\nEntrez '-' pour moins\nEntrez '/' pour diviser",
+    "invalidNumber" : "Entrez un numéro valide", 
+    "invalidOperation" : "Entrez une opération valide:\nEntrez '*' pour multiplier\nEntrez '+' pour plus\nEntrez '-' pour moins\nEntrez '/' pour diviser",
+    "newCal" : "Commencer un nouveau calcul:\nEntrez 'y' pour oui\nEntrez 'n' pour non", 
+    "invalidNewCal" : "Entrez une entrée valide:\nEntrez 'y' pour oui\nEntrez 'n' pour non"
+  }
+}
