@@ -1,2 +1,2 @@
 # README #
-This repo contains the prep exercises for Launch school.
+This repo contains prep and core exercises for Launch school.

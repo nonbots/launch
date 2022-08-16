@@ -1,12 +1,14 @@
 // VARIABLES AND CALLS
-const rl = require('readline-sync');
+const RL = require('readline-sync');
 
-const messages = require('./calculator_messages.json'); 
+const MESSAGES = require('./calculator_messages.json'); 
 
-prompt(messages.en.welcome + '\n' + messages.en.pickLanguage + '\n');
-prompt(messages.fr.welcome + '\n' + messages.fr.pickLanguage);
+// intro message
+prompt(MESSAGES.en.welcome + '\n' + MESSAGES.en.pickLanguage + '\n');
+prompt(MESSAGES.fr.welcome + '\n' + MESSAGES.fr.pickLanguage);
 
-let language = rl.question(); 
+// prompts user input and returns valid language
+let language = RL.question(); 
 language = validateLanguage(language, requestValidInput); 
 
 let newCalInput;
@@ -17,7 +19,7 @@ loops through statements if user choose to do a new calculation
 */
 do {
   calculator(); 
-  newCalInput = getValidInput(messages[language].newCal, validateNewCal)
+  newCalInput = getValidInput(MESSAGES[language].newCal, validateNewCal)
 } while (newCalInput === 'y'); 
 
 // FUNCTIONS
@@ -27,7 +29,7 @@ returns a valid input based on the callback
 */
 function getValidInput(message, cb) {
   prompt(message); 
-  let input = rl.question(); 
+  let input = RL.question(); 
   return cb(input, requestValidInput); 
 }
 
@@ -36,9 +38,10 @@ retieves valid numbers and operation to be passed to getCalculation
 log the result in the console
 */
 function calculator() {
-  let num1 = getValidInput(messages[language].firstNumber, validateNum);
-  let num2 = getValidInput(messages[language].secondNumber, validateNum);
-  let operation = getValidInput(messages[language].operation, validateOperation);
+  console.clear(); 
+  let num1 = getValidInput(MESSAGES[language].firstNumber, validateNum);
+  let num2 = getValidInput(MESSAGES[language].secondNumber, validateNum);
+  let operation = getValidInput(MESSAGES[language].operation, validateOperation);
   let output = getCalculation(num1, num2, operation);
   console.log(`Answer: ${num1} ${operation} ${num2} = ${output}`);
 }
@@ -60,6 +63,9 @@ function getCalculation(input1, input2, operation) {
       output = input1 - input2;
       break;
   }
+  if (isNaN(output) || output === Infinity) {
+    return 'undefined'; 
+  }
   return output;
 }
 
@@ -67,22 +73,23 @@ function getCalculation(input1, input2, operation) {
 //prompts user user input until 'en' or 'fr' is returned
 function validateLanguage(input, cb) {
   while (input !== 'en' && input !== 'fr') {
-    input = cb(messages.en.invalidLanguage + '\n' + messages.fr.invalidLanguage); 
+    input = cb(MESSAGES.en.invalidLanguage + '\n' + MESSAGES.fr.invalidLanguage); 
   }
   return input;
 }
 // prompts user input until 'y' or 'n' ir returned
 function validateNewCal(input, cb) {
   while (input !== 'n' && input !== 'y') {
-    input = cb(messages[language].invalidNewCal);
+    input = cb(MESSAGES[language].invalidNewCal);
   }
+  console.clear(); 
   return input; 
 }
 
 // prompts user input until a number is returned
 function validateNum(num, cb) {
   while (isNaN(num) || num.trim() === "") {
-    num = cb(messages[language].invalidNumber);
+    num = cb(MESSAGES[language].invalidNumber);
   }
   return Number(num);
 }
@@ -93,7 +100,7 @@ function validateOperation(operation, cb) {
         operation !== '/' &&
         operation !== '-' &&
         operation !== '+') {
-    operation = cb(messages.invalidOperation);
+    operation = cb(MESSAGES.invalidOperation);
   }
   return operation;
 }
@@ -101,7 +108,7 @@ function validateOperation(operation, cb) {
 // prompts the user for an input and returns user input
 function requestValidInput(message) {
   prompt(message);
-  return rl.question();
+  return RL.question();
 }
 
 //logs the message to the user with a marker
