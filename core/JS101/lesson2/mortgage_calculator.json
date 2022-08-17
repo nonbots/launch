@@ -1,0 +1,13 @@
+{
+    "welcome" : "Welcome to Mortgage Calculator", 
+    "amt" : "Enter a loan amount:\nMust be above 0 and a whole number",
+    "invalidAmt" : "Enter a valid amount\nMust be above 0 and a whole number",
+    "apr" : "Enter an Annual Percentage Rate:\nMust be a whole number from 0-100",
+    "invalidAPR" : "Enter a valid Annual Percentage Rate:\nMust be a whole number from 0-100",
+    "yearDur" : "Enter the number of years:\nMust be a positive and whole number",
+    "monthDur" : "Enter the number of months:\nMust be a positive and whole number",
+    "invalidDur" :  "Enter a valid number:\nMust be a positive and whole number", 
+    "newCal" : "Start a new calculation:\nMust enter 'y' for yes\nMust enter 'n' for no",
+    "invalidNewCal" : "Enter a valid input:\nMust enter 'y' for yes\nMust enter 'n' for no",
+    "invalidYearMonth" : "Year and month duration can not both be 0"
+ }
