@@ -12,14 +12,13 @@ do {
   let amt = getValidAmt(getInput);
   // prompts and returns valid APR amount
   let apr = getValidAPR(getInput);
-  
   // prompts and returns valid year and month duration
   let yearDur = getValidDur(MESSAGES.yearDur, getInput);
   let monthDur = getValidDur(MESSAGES.monthDur, getInput);
   // while both yearDur and monthDur is 0
   while (yearDur === 0 && monthDur === 0) {
     //logs year and month can not both be 0
-    prompt(MESSAGES.invalidYearMonth); 
+    prompt(MESSAGES.invalidYearMonth);
     yearDur = getValidDur(MESSAGES.yearDur, getInput);
     monthDur = getValidDur(MESSAGES.monthDur, getInput);
   }
