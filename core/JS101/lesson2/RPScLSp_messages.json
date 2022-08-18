@@ -1,0 +1,9 @@
+{
+  "welcome" : "Welcome to Rock, Paper, Scissors, Lizard, Spock, Shoot!\n   Be the first to win 5 rounds against the computer to win the game.",
+  "shoot" : "Enter your choice: Enter 'r' for rock, 'p' for paper, 'sc' for scissors, 'l' for lizard, 'sp' for spock",
+  "invalidShoot" : "Enter valid choice: Enter 'r' for rock, 'p' for paper, 'sc' for scissors, 'l' for lizard, 'sp' for spock",  
+  "newGame" : "Start a new game: Enter 'y' yes, n' for no",
+  "invalidNewGame" : "Enter a valid input: Enter 'y' yes, 'n' for no",
+  "rdDas" : "-------------------------------------------------",
+  "resDas" : "-------------------------------------"
+}
