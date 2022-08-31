@@ -63,8 +63,8 @@ function displayRoundRes(rdRes,scoreBoard) {
   let lb1 = 'Computer Choice:';
   let lb2 = 'Your Choice:';
   console.log(`=> ${lb1} ${rdRes.compChoice} ${lb2} ${rdRes.userChoice}
-   Result: ${rdRes.message}
-   Computer Score: ${scoreBoard.comp} Your Score: ${scoreBoard.user}`);
+  Result: ${rdRes.message}
+  Computer Score: ${scoreBoard.comp} Your Score: ${scoreBoard.user}`);
 }
 
 function updateScore(roundRes, scoreBoard) {
@@ -116,4 +116,3 @@ function getInput(message, cb) {
 function displayMessage(message) {
   console.log(`=> ${message}`);
 }
-
