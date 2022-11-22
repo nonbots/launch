@@ -2808,30 +2808,30 @@ Algo
   - loop through the key value pairs and print each with specified format 
 */
 
-let vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck',
-                'motorcycle', 'motorcycle', 'car', 'truck'];
+// let vehicles = ['car', 'car', 'truck', 'car', 'SUV', 'truck',
+//                 'motorcycle', 'motorcycle', 'car', 'truck'];
 
-function countOccurrences(vehicles) {
-  let result = {};
-  for (let idx = 0; idx < vehicles.length; idx += 1) {
-    if (vehicles[idx] in result) {
-      result[vehicles[idx]] += 1;
-    } else {
-      result[vehicles[idx]] = 1;
-    }
-  }
-  for (let vehicle in result) {
-    console.log(`${vehicle} => ${result[vehicle]}`)
-  }
-}
+// function countOccurrences(vehicles) {
+//   let result = {};
+//   for (let idx = 0; idx < vehicles.length; idx += 1) {
+//     if (vehicles[idx] in result) {
+//       result[vehicles[idx]] += 1;
+//     } else {
+//       result[vehicles[idx]] = 1;
+//     }
+//   }
+//   for (let vehicle in result) {
+//     console.log(`${vehicle} => ${result[vehicle]}`)
+//   }
+// }
 
-console.log(countOccurrences(vehicles));
+// console.log(countOccurrences(vehicles));
 
-// console output -- your output sequence may be different
-car => 4
-truck => 3
-SUV => 1
-motorcycle => 2
+// // console output -- your output sequence may be different
+// car => 4
+// truck => 3
+// SUV => 1
+// motorcycle => 2
 
 
 /*
@@ -2894,20 +2894,562 @@ Problem
 */
 
 
-function countBoomerangs(nums) {
-  let totalBoomerang = 0;
-  for (let idx = 0; idx < nums.length - 2; idx += 1) {
-    let firstNum = nums[idx];
-    let thirdNum = nums[idx + 2];
-    let secondNum = nums[idx + 1];
-    if (firstNum === thirdNum && firstNum !== secondNum) {
-      totalBoomerang += 1;
-    }
-  }
-  return totalBoomerang;
+// function countBoomerangs(nums) {
+//   let totalBoomerang = 0;
+//   for (let idx = 0; idx < nums.length - 2; idx += 1) {
+//     let firstNum = nums[idx];
+//     let thirdNum = nums[idx + 2];
+//     let secondNum = nums[idx + 1];
+//     if (firstNum === thirdNum && firstNum !== secondNum) {
+//       totalBoomerang += 1;
+//     }
+//   }
+//   return totalBoomerang;
+// }
+
+// console.log(countBoomerangs([3,7,3,2,1,5,1,2,2,-2,2]));
+// console.log(countBoomerangs([9,5,9,5,1,1,1]));
+// console.log(countBoomerangs([5,6,6,7,6,3,9]));
+// console.log(countBoomerangs([4,4,4,9,9,9,9]));
+
+
+/*
+5:49 (minutes)
+Problem
+- input: string
+- output: string
+
+- returns a string where every character is the string is doubled
+- if the input string is empty return an empty string
+
+Example
+repeater('Hello');        // "HHeelllloo"
+repeater('Good job!');    // "GGoooodd  jjoobb!!"
+repeater('');             // ""
+
+Data Structure
+returning a new string
+
+Algo
+- init an empty string to result 
+- iterate through the string
+    - reassign result to its current string and the current string repeated twice
+- return result
+*/
+
+// function repeater(inputString) {
+//     let result = '';
+//     for (let idx = 0; idx < inputString.length; idx += 1) {
+//         result += inputString[idx].repeat(2);
+//     }
+//     return result;
+// }
+
+// console.log(repeater('Hello'));        // "HHeelllloo"
+// console.log(repeater('Good job!'));    // "GGoooodd  jjoobb!!"
+// console.log(repeater(''));             // ""
+
+/*
+6:13 (18 minutes)
+Problem
+- input: string
+- output: string
+
+- double every consonant character in the string
+
+Examples
+
+doubleConsonants('String');          // "SSttrrinngg"
+doubleConsonants('Hello-World!');    // "HHellllo-WWorrlldd!"
+doubleConsonants('July 4th');        // "JJullyy 4tthh"
+doubleConsonants('');                // ""
+
+Data Structure
+
+
+Aglo
+
+- init a result to empty string
+- iterate through the string
+  - if the current char is a consonants 
+    - concate the current char repeat twice to result string
+- return result
+
+- define a isConsonants (char)
+  - if the char is an alpha and if it is not a vowel
+    -return true
+-return false
+
+*/
+
+// function doubleConsonants(inputString) {
+//     let result = '';
+//     for (let idx = 0; idx < inputString.length; idx += 1) {
+//       if (isConsonants(inputString[idx])) {
+//         result += inputString[idx].repeat(2);
+//       } else {
+//         result += inputString[idx];
+//       }
+//     }
+//     return result;
+// }
+
+// function isConsonants(char) {
+//   char = char.toLowerCase();
+//   if ((char >= 'a' && char <= 'z') && (!'aeiou'.includes(char))) {
+//     return true;
+//   }
+//   return false;
+// }
+
+// console.log(isConsonants('a'));
+// console.log(isConsonants('!'));
+// console.log(isConsonants('b'));
+
+// console.log(doubleConsonants('String'));          // "SSttrrinngg"
+// console.log(doubleConsonants('Hello-World!'));    // "HHellllo-WWorrlldd!"
+// console.log(doubleConsonants('July 4th'));        // "JJullyy 4tthh"
+// console.log(doubleConsonants(''));                // ""
+
+/*
+6:32 (10 minutes)
+
+- input: positive integerProblem
+- output: number with its digits reversed
+
+Example:
+
+reverseNumber(12345);    // 54321
+reverseNumber(12213);    // 31221
+reverseNumber(456);      // 654
+reverseNumber(12000);    // 21 -- Note that leading zeros in the result get dropped!
+reverseNumber(1);        // 1
+
+Data structure 
+- convert the input number into a string => convert to array of chars => reverse the array => convert to string => convert back to a number
+
+Algo
+- convert the input number to string ( returns a new string)
+- convert to an array of chars
+- reverse the the array, the convert to string
+- convert the string back to a number (returns a new string)
+- return the number
+*/
+
+// function reverseNumber(num) {
+//   return Number(String(num).split('').reverse().join(''));
+// }
+
+// console.log(reverseNumber(12345));    // 54321
+// console.log(reverseNumber(12213));    // 31221
+// console.log(reverseNumber(456));      // 654
+// console.log(reverseNumber(12000));    // 21 -- Note that leading zeros in the result get dropped!
+// console.log(reverseNumber(1));        // 1
+
+/*
+6:42 7:02 (20 minutes)
+Problem
+- input: non-empty string
+- output: middle character of the string
+
+- if the string has an odd length, the middle character is one char
+- else the middle character is two char
+
+Example
+centerOf('I Love JavaScript'); // "a" 17 /2 = 8.something => round down to get the middle number
+centerOf('Launch School');     // " "
+centerOf('Launch');            // "un" 6/ 2 = 3 index is the second middle number get the char of the index before that
+centerOf('Launchschool');      // "hs"
+centerOf('x');                 // "x"
+
+Data Structure
+
+
+Algo
+- determine of the input string length is odd or even
+- if odd
+  - return the char at the string length divide by 2 rounded down 
+- else
+  - init second char at the index of length divided by 2 
+  - init first char at the index of lenght diviced by 2 - 1 
+  - return the concate string of firstChar and secondChar
+*/
+// function centerOf(inputString) {
+//   if (inputString.length % 2 === 1) {
+//     return inputString[Math.floor(inputString.length / 2)];
+//   } else {
+//     let secondChar = inputString[inputString.length / 2];
+//     let firstChar = inputString[(inputString.length / 2) - 1];
+//     return firstChar + secondChar;
+//   }
+// }
+
+// console.log(centerOf('I Love JavaScript')); // "a"
+// console.log(centerOf('Launch School'));     // " "
+// console.log(centerOf('Launch'));            // "un"
+// console.log(centerOf('Launchschool'));      // "hs"
+// console.log(centerOf('x'));                 // "x"
+
+/*
+7:04 (8 minutes)
+Problem
+- input: number
+- output: number that is negative of that number 
+
+- if the input number is already negative return as is
+
+Examples
+negative(5);     // -5
+negative(-3);    // -3
+negative(0);     // -0
+
+Data Strucure
+
+
+Algo
+- if the input number is negative 
+  - return the input number
+- else
+  - return the input number * 1
+
+*/
+
+// function negative(num) {
+//   if (num < 0) {
+//     return num;
+//   } else {
+//     return num * -1;
+//   }
+// }
+
+// console.log(negative(5));     // -5
+// console.log(negative(-3));    // -3
+// console.log(negative(0));     // -0
+
+/*
+7:21 (9 minutes)
+Problem
+- input: integer
+- output: array
+
+- output array contains all integers between 1 and the argument inclusive in ascending order
+- input array will always be a positive integer
+
+Examples
+sequence(5);    // [1, 2, 3, 4, 5]
+sequence(3);    // [1, 2, 3]
+sequence(1);    // [1]
+
+Data structure
+- using an array to store the numbers
+
+Algo
+init newArr to empty array
+- starting a loop at 1, if the current number is less than or equal to the input number incrementing by 1 
+  - add the current number ot he new array
+- return the array
+*/
+
+// function sequence(num) {
+//   const newArr = [];
+//   for (let count = 1; count <= num; count += 1) {
+//     newArr.push(count);
+//   }
+//   return newArr;
+// }
+
+// console.log(sequence(5));    // [1, 2, 3, 4, 5]
+// console.log(sequence(3));    // [1, 2, 3]
+// console.log(sequence(1));    // [1]
+
+/*
+7:31 (8 minutes)
+Problem
+- input: string (first name, space, last name)
+- output: string (last name, comma, space, first name)
+
+- Example
+swapName('Joe Roberts');    // "Roberts, Joe"
+
+Data structure
+string => convert to an array of words => reverse the array => convert to string with ', ' as deliminator
+
+
+Algo
+- convert input string to an array of words
+- reverse the array
+- convert back to string with ', ' as deliminator
+- return the string
+
+*/
+
+function swapName(stringInput) {
+  return stringInput.split(' ').reverse().join(', ');
 }
 
-console.log(countBoomerangs([3,7,3,2,1,5,1,2,2,-2,2]));
-console.log(countBoomerangs([9,5,9,5,1,1,1]));
-console.log(countBoomerangs([5,6,6,7,6,3,9]));
-console.log(countBoomerangs([4,4,4,9,9,9,9]));
+// console.log(swapName('Joe Roberts'));    // "Roberts, Joe
+
+
+
+/*
+7:42 (15 minutes)
+Problem
+- input: string
+- output: string
+
+Example
+swapName('Karl Oskar Henriksson Ragvals');    // "Ragvals, Karl Oskar Henriksson"
+
+Data Structure
+- 'Karl Oskar Henriksson Ragvals'
+- ['Karl',...'Ragvals']
+- ['Ragvals'] + ', ' + ['Karl'...]
+
+Algo
+- convert the input string to an array of words
+- remove the last element from the array and init to first
+- conat first to the array of words converts to string with a space as a deliminator
+- return the string
+
+*/
+
+// function swapName(inputString) {
+//   const words = inputString.split(' ');
+//   let last = words.pop();
+//   return last + ', ' + words.join(' ');
+// }
+
+
+// console.log(swapName('Karl Oskar Henriksson Ragvals'));    // "Ragvals, Karl Oskar Henriksson"
+
+
+/*
+Problem
+8:42 (18 minutes)
+- input: two integers (count, startNum)
+- output: array (contains the same number of elements as the count)
+
+- the value of each element should be a multiple of the starting number
+- count will always be greater than or eqaul to 0
+- may be any integer
+- if count is zero return an empty array
+
+Example:
+sequence(5, 1);          // [1, 2, 3, 4, 5]
+sequence(4, -7);         // [-7, -14, -21, -28]
+sequence(3, 0);          // [0, 0, 0]
+sequence(0, 1000000);    // []
+
+Data structure
+- using an array to store the numbers
+
+Algo
+- create an array that stores all the multiples of the starting number called result
+- start at startNum, increment by the startNum if the result array is less than count
+  - add the startNum to the array
+- return result
+*/
+
+// function sequence(count, startNum) {
+//   const result = [];
+//   for (let num = startNum; result.length < count; num += startNum) {
+//     result.push(num);
+//   }
+//   return result;
+// }
+
+// console.log(sequence(5, 1))          // [1, 2, 3, 4, 5]
+// console.log(sequence(4, -7));         // [-7, -14, -21, -28]
+// console.log(sequence(3, 0));          // [0, 0, 0]
+// console.log(sequence(0, 1000000));    // []
+
+/*
+9:04 (8 minutes)
+Problem
+- input: string
+- output: string (containing the words from the string argument in reverse order)
+
+Examples:
+'' => ''
+'Hello World' => 'Word Hello'
+'Reverse the words' => 'words the Reverse'
+
+Data structure
+- string
+- array of words
+- reverse the order of the words in the array
+- convert the words back to a string with spaces in between
+
+Algo
+- string
+- convert to an array of words
+- reverse the order of the words in the array
+- convert the words back to a string with spaces in between
+- return the string
+*/
+
+// function reverseSentence(inputString) {
+//   return inputString.split(' ').reverse().join(' ');
+// }
+
+// console.log(reverseSentence(''));                       // ""
+// console.log(reverseSentence('Hello World'));            // "World Hello"
+// console.log(reverseSentence('Reverse these words'));    // "words these Reverse"
+
+/*
+9:12 (14 minutes)
+Problem
+- input: string (chars will only be consisting of letters and spaces)
+- output: string
+
+- all words with 5 or more letters should have their letters reversed
+
+Examples:
+'Professional' => "lanoisseforP" word length is greater or equal to 5
+
+'Walk around the block' => "Walk dnuora the kcolb"
+'Launch School' => "hcnuaL loohcS"
+
+Data structure
+ - string
+ - convert to array of words
+ - if the word length is equal to or greater than 5
+  - reverse the word
+ - convert tranformed array to a string
+ 
+Algo
+ - convert to array of words
+ - iterate through the array of words
+   - if the word length is equal to or greater than 5
+    - return the reversed word
+   - else
+    - return the word
+ - convert the returned tranformed array to a string with spaces in between and return it
+*/
+
+// function reverseWords(inputString) {
+//   return inputString.split(' ').map(word => {
+//     if (word.length >= 5) {
+//       return word.split('').reverse().join('');
+//     } else {
+//       return word;
+//     }
+//   }).join(' ');
+// }
+
+// console.log(reverseWords('Professional'));             // "lanoisseforP"
+// console.log(reverseWords('Walk around the block'));    // "Walk dnuora the kcolb"
+// console.log(reverseWords('Launch School'));            // "hcnuaL loohcS"
+
+/*
+9:27 : 45 (18 mintes)
+Problem
+- input: array 
+- output: the same array mutate with elements in reversed order
+
+- reversed the array in its place 
+- you cannot use reverse
+
+Example
+[1, 2, 3, 4] => [4,3,2,1]
+["a", "b", "c", "d", "e"] => ["a", "b", "c", "d", "e"]
+["abc"] =>  ["abc"]
+[] =>  []
+
+Data Structure 
+[1*, 2, 3, 4] temp = 1 
+[4, 2*, 3, 1] temp = 2
+[4, 3 ,2, 1] 
+
+Algo
+- iterate through only the first half of the array
+  - init a temp to the current num
+  - reassign the current index value to the value of the last index - the current index
+  - reasign the value of the last index - the current index to temp
+return the array
+*/
+
+// function reverse(arr) {
+//   for (let idx = 0; idx < arr.length / 2; idx += 1) {
+//     let temp = arr[idx];
+//     arr[idx] = arr[(arr.length - 1) - idx];
+//     arr[(arr.length - 1) - idx] = temp;
+//   }
+//   return arr;
+// }
+
+// let list = [1, 2, 3, 4];
+// let result = reverse(list);
+// console.log(result); // logs [4,3,2,1]
+// console.log(list === result); // logs true
+
+// let list1 = ["a", "b", "c", "d", "e"];
+// let result1 = reverse(list1);
+// console.log(result1); // logs  ["e", "d", "c", "b", "a"]
+// console.log(list1 === result1); // logs true
+
+// let list2 = ["abc"];
+// let result2 = reverse(list2);
+// console.log(result2); // logs  ["abc"]
+// console.log(list2 === result2); // logs true
+
+// let list3 = [];
+// let result3 = reverse(list3);
+// console.log(result3); // logs []
+// console.log(list3 === result3); // logs true
+
+/*
+9:42
+Problem
+- input: string
+- output: boolean
+
+- return true if all parentheses in the string are properly balanced
+- return false
+
+- balanced : parenteses occur in pairs '(' ')'.
+
+Examples
+
+(+1 (+2 ) +1) 0)
+
+(+1 )0 )+1
+
+(+1(+2 )+1(+2 )+1)0
+)-1 ( 0 
+
+if the sequence starts at -1 return false
+
+console.log(isBalanced("What (is) this?") === true);
+console.log(isBalanced("What is) this?") === false);
+console.log(isBalanced("What (is this?") === false);
+console.log(isBalanced("((What) (is this))?") === true);
+console.log(isBalanced("((What)) (is this))?") === false);
+console.log(isBalanced("Hey!") === true);
+console.log(isBalanced(")Hey!(") === false);
+console.log(isBalanced("What ((is))) up(") === false);
+
+Data Structure
+- use a number store the evenness of open and closing parenthese
+
+Algo
+- init balanceVal to 0
+- iterate through the string
+  - if the string is a '('
+    - add 1 balanceVal
+  - if the string is a ')'
+    - minus 1 from balanceVal
+  - if (balanceVal is negative) return false
+- return if balanceVal is equal to zero
+*/
+
+
+
+// console.log(isBalanced("What (is) this?") === true);
+// console.log(isBalanced("What is) this?") === false);
+// console.log(isBalanced("What (is this?") === false);
+// console.log(isBalanced("((What) (is this))?") === true);
+// console.log(isBalanced("((What)) (is this))?") === false);
+// console.log(isBalanced("Hey!") === true);
+// console.log(isBalanced(")Hey!(") === false);
+// console.log(isBalanced("What ((is))) up(") === false);
