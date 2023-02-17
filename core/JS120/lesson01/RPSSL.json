@@ -1,0 +1,9 @@
+{
+    "welcome": "Welcome to Rock, Paper, Scissors, Spock, or Lizard.",
+    "goodbye": "Thanks for playing Rock, Paper, Scissors, Spock, or Lizard.",
+    "replay" : "Would you like to play again? (n/y): ",
+    "replayInvalid" : "Invalid. Would you like to play again? (n/y): ",
+    "choose" : "Choose rock, paper, scissors, spock, or lizard: ",
+    "chooseInvalid" : "Invalid. Choose rock, paper, scissors, spock, or lizard: ", 
+    "analysis": "Computer analysis ( 1 = human wins, 0 = human loses):"
+}

@@ -3183,8 +3183,8 @@ Algo
 
 */
 
-function swapName(stringInput) {
-  return stringInput.split(' ').reverse().join(', ');
+// function swapName(stringInput) {
+//   return stringInput.split(' ').reverse().join(', ');
 }
 
 // console.log(swapName('Joe Roberts'));    // "Roberts, Joe
