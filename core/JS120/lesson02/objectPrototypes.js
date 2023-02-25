@@ -118,4 +118,6 @@ c: 4        // from foo
 How do you create an object that doesn't have a prototype? How can you determine whether an object has a prototype?
 
 You can create a object that does not have a prototype by using Object.create(null). You can use the Object.getPrototypeOf(obj) to determine if there is a prototype. This should return null.
+
+
 */

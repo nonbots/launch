@@ -112,8 +112,8 @@ c --> b --> a --> Object.prototype --> null
 //     baz: 3,
 // };
 
-Object.setPrototypeOf(c, b);
-Object.setPrototypeOf(b, a);
+// Object.setPrototypeOf(c, b);
+// Object.setPrototypeOf(b, a);
 // console.log("A", Object.getPrototypeOf(c));
 // console.log("B", Object.getPrototypeOf(b));
 // console.log("C", Object.getPrototypeOf(a));
@@ -237,4 +237,74 @@ greeterEn(); // logs 'Hello!'
   e. Explicit Execution Contect with apply
     - uses an array to pass arguments to the function (context, [args...])
   f. this depends on how you invoke it and is not entirely depend on rules of variable scope.
+
+  6. Hard Binding Funcions with Contexts
+    a. bind 
+      - returns a new function. The new function is permanently bound to the object passed as the first argument. The object passed in is set as the current value of  `this` which is the 
+      . Once binded the function's execution context can not be changed.
+
+// let object = {
+//     a: "hello",
+//     b: "world",
+//     foo: function () {
+//         return this.a + " " + this.b;
+//     },
+// };
+
+// let bar = object.foo();
+// console.log(bar);
+// let bar = object.foo;
+// console.log(bar());
+// console.log(object.foo());
+// let baz = object.foo.bind(object);
+// console.log(baz);
+// console.log(baz());
+7. Dealing with Context Loss I
+    a. Method Copied from Object
+      - a method is copied out of an object and used elsewhere
+      - the object context can be passed in as an argument 
+      - bind the function to the object when passing into argument
+8. Dealing with Context Loss II
+    a. Inner Function Not Using the Surrounding Context
+      -
 */
+// let obj = {
+//     a: "hello",
+//     b: "world",
+//     foo: function () {
+//         function bar() {
+//             console.log(this.a + " " + this.b);
+//         }
+
+//         bar();
+//     },
+//     // foo: function () {
+//     //     console.log(this.a + " " + this.b);
+//     // },
+// };
+
+// obj.foo();
+/*
+`bar` on `line 279` is invoked as a standalone function in the global execution context on the object.
+    b. Solutions 
+      - preserve context with a variable in outer scope.
+      - call inner function with explicit context
+      - use bind on the inner function and ger a new function with its execution context permanelty set to the object.
+      - use an arrow function; uses the execution context from the surrounding context in which they are defined.
+9. Dealing with Context Loss III 
+  a. passing functions as arguments can strip them of their intended context objects
+  b. function as argument losing surrounding context 
+    - preserve the context with a variable in outer scope
+    - use bind
+    - use arrow function for the callback 
+    - use optional thisArg argument are available in some methods that take callbacks
+*/
+
+let obj = {
+    foo() {
+        return this;
+    },
+};
+
+let foo = obj.foo;
+console.log(foo());
