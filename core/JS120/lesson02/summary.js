@@ -299,12 +299,3 @@ greeterEn(); // logs 'Hello!'
     - use arrow function for the callback 
     - use optional thisArg argument are available in some methods that take callbacks
 */
-
-let obj = {
-    foo() {
-        return this;
-    },
-};
-
-let foo = obj.foo;
-console.log(foo());

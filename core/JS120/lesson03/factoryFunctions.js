@@ -71,6 +71,56 @@ In this problem and the remaining problems, we'll build a simple invoice prodess
 /*
 Build a factory funtion to create payments. 
 */
+// function createPayment(services = {}) {
+//     const payment = {
+//         phone: services.phone || 0,
+//         internet: services.internet || 0,
+//         amount: services.amount,
+//     };
+//     payment.total = function () {
+//         return this.amount || this.phone + this.internet;
+//     };
+//     return payment;
+// }
+
+// function paymentTotal(payments) {
+//     return payments.reduce((sum, payment) => sum + payment.total(), 0);
+// }
+
+// let payments = [];
+// payments.push(createPayment());
+// payments.push(
+//     createPayment({
+//         internet: 6500,
+//     })
+// );
+
+// payments.push(
+//     createPayment({
+//         phone: 2000,
+//     })
+// );
+
+// payments.push(
+//     createPayment({
+//         phone: 1000,
+//         internet: 4500,
+//     })
+// );
+
+// payments.push(
+//     createPayment({
+//         amount: 10000,
+//     })
+// );
+
+// // payments.forEach((payment) => console.log(payment));
+// console.log(paymentTotal(payments));
+
+/*
+Update the createInvoice function so that it can add payment(s) to invoices
+*/
+
 function createPayment(services = {}) {
     const payment = {
         phone: services.phone || 0,
@@ -82,44 +132,6 @@ function createPayment(services = {}) {
     };
     return payment;
 }
-
-function paymentTotal(payments) {
-    return payments.reduce((sum, payment) => sum + payment.total(), 0);
-}
-
-let payments = [];
-payments.push(createPayment());
-payments.push(
-    createPayment({
-        internet: 6500,
-    })
-);
-
-payments.push(
-    createPayment({
-        phone: 2000,
-    })
-);
-
-payments.push(
-    createPayment({
-        phone: 1000,
-        internet: 4500,
-    })
-);
-
-payments.push(
-    createPayment({
-        amount: 10000,
-    })
-);
-
-// payments.forEach((payment) => console.log(payment));
-console.log(paymentTotal(payments));
-
-/*
-Update the createInvoice function so that it can add payment(s) to invoices
-*/
 function createInvoice(services = {}) {
     let phoneCharge = services.phone;
     if (phoneCharge === undefined) phoneCharge = 3000;
@@ -129,19 +141,20 @@ function createInvoice(services = {}) {
     return {
         phone: phoneCharge,
         internet: internetCharge,
-        payments: [],
+        totalPayments: 0, // could store using an array of payments instead in order to have access to individual payments
         total: function () {
             return this.phone + this.internet;
         },
         addPayment(payment) {
-            this.payments.push(payment);
+            this.totalPayments += payment.total();
         },
         addPayments(payments) {
-            payments.forEach((payment) => this.payments.push(payment));
+            payments.forEach(
+                (payment) => (this.totalPayments += payment.total())
+            );
         },
         amountDue() {
-            let totalPayments = this.payments.reduce((a, b) => a + b, 0);
-            return this.total - totalPayments;
+            return this.total() - this.totalPayments;
         },
     };
 }
@@ -157,7 +170,6 @@ let payment2 = createPayment({
 });
 
 let payment3 = createPayment({ phone: 1000 });
-
 invoice.addPayment(payment1);
 invoice.addPayments([payment2, payment3]);
-invoice.amountDue(); // this should return 0
+console.log(invoice.amountDue()); // this should return 0
