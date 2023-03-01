@@ -70,13 +70,92 @@ lizzy.scamper(); // ?
       - define a method onc in the prototype object and the inheriting objects delegate the method calls to the prototype
     b. Constructor prototype Property 
       - constructor creates an object whose prototype reference the Foo.prototype
-      - constructor's prototype object (function prototype): an object that he constructore useds as the object prototype for the object it creates, the constructor's prototype object.
+      - constructor's prototype object (function prototype): an object that the constructor uses as the object prototype for the object it creates, the constructor's prototype object.
     c. overriding the prototype
       - overriding a to an individual object can be done if you reassign the method to a different function.
 
       - all functions have prototype propery
   6. Static and Instance Properties and Methods
-
+    a. instance - individual objects of a specific data type
+      -  properties of instances are not properties of the constructor
+    b. instance methods
+      - stored in the object's instances but in the prototype's prototype property 
+    c. static properties
+      - defined and accessed directly from the constructor and belongs to the type not the instances or prototype
+    d. static methods 
+      - define and accessed directly from the constructor and belongs to the type not the instances of prototype (ex. Array.isArray, Date.now, Object.assign)
   7. Built-in Constructors
+    a. Array 
+      - first parameter takes a length
+      - if more than one parameter adds those values into the new array
+      - .fill method determines what the values are
+      - array.prototype
+        - its prototype properties contain methods like forEach, map, filter, includes, etc called instance methods of the Array type
+      - static array methods
+        - array.isArray return if a argument is an array or not (used to differentiate between array and objects since array are also objects)
+        - array.from takes an array-like object and returns an array
+          > Array.from({0: 'a', 1: 'b', 2: 'c', length: 3})
+          ['a', 'b', 'c']
+    b. Object
+      - Object.prototype : all objects have access to the instance methods defined in Object.prototype such as .hasOwnPropetry, isPrototypeOf, etc. 
+      - since array are objects these methods can also be used where the key is the index of the array
+      - array.prototype inherits from object.prototype
+      - Object.prototype.toString returns a string representation of the obejdt that it's called on and is inherited by arrays, functions, and dates
+      - static Object methods 
+        - assign, create, entries, freeze, isFrozen, keys, values
+    c. Date
+      - creates objects that represent a specific date and time. 
+      - Date prototype
+        - toString returns a string of date
+        - getFullYear returns only the year
+        - getDay return the day of the week
+    d. String 
+      - has primitive strings and object strings (string are in reality objects)
+      - use new to create a string object
+      - used to call methods a primitive strings where the primitive string is wraps the string behind teh scences to access the property or methods and then discards the warpper when it is done and the method returns a primitive
+      - omitting the new keyword whe creating the object returns a string and converts argument into a string.
+    d. Number and Boolean
+      - same as strings
+      - avoid creating string, number and boolean objects explicitly
+    f. Extending Built-In Prototypes
+      - methods can be added to a type by adding method to the constructor's prototype property
+      - base practice to not add methods to prototype property since it others might not be aware of them
+    g. Array Methods for String
+      - methods are not tied to an object type through the use of explicit context-binding ao the a method from another object can be applied to a different object type called method borrowing
+      - array methods are useful with string objects
   8. ES6 Classes
+    - a more familiar way for OOP programmers from other languages to create contructors and prototypes
+    - class declaration
+      - defining the getArea method gets placed in Rectangle.prototype
+      - must use new to create an instance
+    - class expressions
+      - expression can be assigned to a variable
+    - first class : a value that can be passed into a function, returned from a function and assigned to a variable
+    - first-class object thus has stat methods and properties
+    - static method are on the class of type 
+    - methods, instance or object methods are on the instance and are on the prototypes's prototype property
+    - static methods can be define in the class by using `static` or the `class.method` (adding the static method directly on the class (constructor))
+    - static properties uses the static keyword is shared by all instances
+    - caveats
+      - in strict mode
+      - class declartions are not hoisted
+        -is declared but not initialized unit the definition gets executed
+      - must use new keyword
+      - cannot reassign the prototype object  
 */
+class Foo {
+    init(parm) {
+        this.parm = parm;
+    }
+
+    static bar() {
+        // omitted code
+    }
+
+    qux() {
+        // omitted code
+    }
+}
+
+let foo = new Foo().init(10);
+console.log(foo);
