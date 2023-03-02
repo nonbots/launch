@@ -143,19 +143,3 @@ lizzy.scamper(); // ?
       - must use new keyword
       - cannot reassign the prototype object  
 */
-class Foo {
-    init(parm) {
-        this.parm = parm;
-    }
-
-    static bar() {
-        // omitted code
-    }
-
-    qux() {
-        // omitted code
-    }
-}
-
-let foo = new Foo().init(10);
-console.log(foo);
