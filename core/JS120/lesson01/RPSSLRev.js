@@ -10,7 +10,7 @@ const YES = "y";
 const NO = "n";
 const INIT_SCORE = 0;
 const TOTAL_WINS = 5;
-const INIT_WIEGHT = 1;
+const INIT_WEIGHT = 1;
 const INIT_INTERVAL = 19;
 const WEIGHT_DEC = 0.6;
 const HUMAN_WIN = 1;
@@ -47,7 +47,7 @@ const RPSGame = {
     }
   },
 
-  setScoreAnalysis() {
+  setScoreAndHumanWinLost() {
     if (this.computerWin()) {
       this.computer.updateScore();
       this.computer.addHumanLost();
@@ -89,10 +89,10 @@ const RPSGame = {
     this.displayScore();
   },
 
-  choseDisplay() {
+  choseAndDisplay() {
     this.human.choose();
     this.human.displayChoice();
-    this.computer.choose();
+    this.computer.defenseMove();
     this.computer.displayChoice();
   },
 
@@ -103,8 +103,8 @@ const RPSGame = {
         this.computer.score < TOTAL_WINS &&
         this.human.score < TOTAL_WINS
       ) {
-        this.choseDisplay();
-        this.setScoreAnalysis();
+        this.choseAndDisplay();
+        this.setScoreAndHumanWinLost();
         this.displayRoundWinnerScore();
       }
       this.displayGameWinner();
@@ -113,7 +113,7 @@ const RPSGame = {
     } while (this.human.replay === YES);
     this.displayGoodbyeMessage();
     this.displayHistory();
-    this.computer.displayAnalysis();
+    this.computer.displayWinLost();
   },
 };
 
@@ -130,6 +130,9 @@ function createHumanDisplay() {
     displayHistory() {
       console.log("Your moves:", this.history);
     },
+    clearDisplay() {
+      console.clear();
+    },
   };
 }
 
@@ -142,6 +145,7 @@ function createReplay() {
       while (this.replay !== YES && this.replay !== NO) {
         this.replay = RL.question(MSG.replayInvalid);
       }
+      this.clearDisplay();
     },
   };
 }
@@ -157,40 +161,41 @@ function createHuman() {
         this.move = RL.question(MSG.chooseInvalid);
       }
       this.addToHistory();
+      this.clearDisplay();
     },
   };
   return Object.assign(player, display, replay, humanObject);
 }
 
-function createAnalysis() {
-  const analysis = {
-    analysis: {
+function createHumanWinLost() {
+  const humanWinLost = {
+    humanWinLost: {
       rock: [],
       paper: [],
       scissors: [],
       lizard: [],
       spock: [],
     },
-    humanWins: [],
+    movesOver60: [],
 
     addHumanWin() {
-      this.analysis[this.move].push(HUMAN_WIN);
+      this.humanWinLost[this.move].push(HUMAN_WIN);
     },
     addHumanLost() {
-      this.analysis[this.move].push(HUMAN_LOST);
+      this.humanWinLost[this.move].push(HUMAN_LOST);
     },
   };
   const getWins = createGetWins();
-  return Object.assign(analysis, getWins);
+  return Object.assign(humanWinLost, getWins);
 }
 
 function createGetWins() {
   return {
-    getOver60() {
-      for (let move in this.analysis) {
-        let sum = this.analysis[move].reduce((a, b) => a + b, 0);
-        if (sum / this.analysis[move].length > WEIGHT_DEC) {
-          this.humanWins.push(move);
+    addMoveOver60() {
+      for (let move in this.humanWinLost) {
+        let sum = this.humanWinLost[move].reduce((a, b) => a + b, 0);
+        if (sum / this.humanWinLost[move].length > WEIGHT_DEC) {
+          this.movesOver60.push(move);
         }
       }
     },
@@ -200,11 +205,11 @@ function createGetWins() {
 function createWeight() {
   const weight = {
     weight: {
-      rock: INIT_WIEGHT,
-      paper: INIT_WIEGHT,
-      scissors: INIT_WIEGHT,
-      lizard: INIT_WIEGHT,
-      spock: INIT_WIEGHT,
+      rock: INIT_WEIGHT,
+      paper: INIT_WEIGHT,
+      scissors: INIT_WEIGHT,
+      lizard: INIT_WEIGHT,
+      spock: INIT_WEIGHT,
     },
   };
   const setWeight = createSetWeight();
@@ -215,10 +220,11 @@ function createSetWeight() {
   return {
     setWeight() {
       for (let move in this.weight) {
-        if (!this.humanWins.includes(move)) {
-          let winsLen = this.humanWins.length;
+        if (!this.movesOver60.includes(move)) {
+          let movesLen = this.movesOver60.length;
           let choicesLen = this.choices.length;
-          let remainder = ((1 - WEIGHT_DEC) * winsLen) / (choicesLen - winsLen);
+          let remainder =
+            ((1 - WEIGHT_DEC) * movesLen) / (choicesLen - movesLen);
           this.weight[move] = 1 + remainder;
         } else {
           this.weight[move] = WEIGHT_DEC;
@@ -283,10 +289,10 @@ function createRandomMove() {
   };
 }
 
-function createDisplay() {
+function createComputerDisplay() {
   return {
-    displayAnalysis() {
-      console.log(MSG.analysis, this.analysis);
+    displayWinLost() {
+      console.log(MSG.humanWinLost, this.humanWinLost);
     },
     displayHistory() {
       console.log("Computer moves:", this.history);
@@ -302,33 +308,36 @@ function createDisplay() {
   };
 }
 
-function createComputer() {
-  const player = createPlayer();
-  const analysis = createAnalysis();
+function createDefenseMove() {
+  const humanWinLost = createHumanWinLost();
   const weight = createWeight();
   const intervals = createIntervals();
   const ranges = createRanges();
   const randomMove = createRandomMove();
-  const display = createDisplay();
-  const choose = {
-    choose() {
-      this.getOver60();
+  const defenseMove = {
+    defenseMove() {
+      this.addMoveOver60();
       this.setWeight();
-      this.humanWins = [];
+      this.movesOver60 = [];
       this.randomMove();
       this.addToHistory();
     },
   };
   return Object.assign(
-    player,
-    analysis,
+    humanWinLost,
     weight,
     intervals,
     ranges,
-    display,
     randomMove,
-    choose
+    defenseMove
   );
+}
+
+function createComputer() {
+  const player = createPlayer();
+  const defenseMove = createDefenseMove();
+  const display = createComputerDisplay();
+  return Object.assign(player, defenseMove, display);
 }
 
 function createPlayer() {
