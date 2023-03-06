@@ -51,48 +51,21 @@ will.toString(); // => My name is William and I'm 28 years old.
   - psuedo-classical intheritance or constructor inheritance 
     - a constructor's prototype object (the object referenced by its prototype property) inherits from another constructor's prototype. sub-type inherits from a super-type
 5. Subtyping with Classes
+  - extends
+  - super
 8. Code Reuse with Mixins
+  - single inheritance
+    - objects can inherit from only one object 
+    - an object can have only one prototype object
+    - classes can extend only one other class
+  - mix-ins
+    - a pattern that adds methods and properties from one object to another.
+      - uses the assign method of Object
+        - add the object containing the method to the passed in object's prototype
+  - is a relationship makes sense to use constructor or class inheritance
+  - otherwise endow your objects with some capability
 9. Polymorphism
+  - the ability of object with diffferent types to respond in different ways to the same message through overriding?
+  - duck typing 
+    - object of different unrelated types respond to the same method name.
 */
-// function Human() {}
-// Human.prototype.myName = function () {
-//     return this.name;
-// };
-// Human.prototype.myAge = function () {
-//     return this.age;
-// };
-
-// function Person() {}
-// Person.prototype = Object.create(Human.prototype);
-// Person.prototype.constructor = Person;
-// Person.prototype.toString = function () {
-//     return `My name is ${this.myName()} and I'm ${this.myAge()} years old.`;
-// };
-
-// let will = new Person();
-// will.name = "William";
-// will.age = 28;
-// console.log(will.toString()); // => My name is William and I'm 28 years old.
-
-class Human {
-    myName() {
-        return this.name;
-    }
-    myAge() {
-        return this.age;
-    }
-    // toString() {
-    //     return `My name is ${this.myName()} and I'm ${this.myAge()} years old.`;
-    // }
-}
-
-// class Person extends Human {
-//     toString() {
-//         return `My name is ${this.myName()} and I'm ${this.myAge()} years old.`;
-//     }
-// }
-
-// let will = new Person();
-// will.name = "William";
-// will.age = 28;
-// console.log(will.toString()); // => My name is William and I'm 28 years old.
