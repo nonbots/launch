@@ -68,4 +68,11 @@ will.toString(); // => My name is William and I'm 28 years old.
   - the ability of object with diffferent types to respond in different ways to the same message through overriding?
   - duck typing 
     - object of different unrelated types respond to the same method name.
+  - polymorphism through inheritance 
+    - the method is inherited from the super class and overridden in the sub class
+
 */
+let Animal = {};
+let Cat = Object.create(Animal);
+let fluffy = Object.create(Cat);
+console.log(fluffy instanceof Animal);

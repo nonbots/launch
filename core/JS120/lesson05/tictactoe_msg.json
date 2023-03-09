@@ -1,0 +1,13 @@
+{
+    "welcome" : "Weclome to Tic Tac Toe!", 
+    "instructions" : "Be the first to have three consecutive marks in a row, column, or diagonal to score a point.", 
+    "instructions2" : "Row 1: 1|2|3, Row 2: 4|5|6, Row 3: 7|8|9",
+    "newGame" : "Would you like to start a new game? (y/n)",
+    "invalidInput" : "Please enter a valid input of 'y' or 'n'" , 
+    "won" : "You won this round.", 
+    "lost" : "You lost this round.",
+    "tie" : "It's a tie.",
+    "wonGme" : "Congratulations, You won the game!",
+    "lostGme" : "You lost, better effort next time.",
+    "firstMove" : "Would you like to make the first move? (y/n)"
+}
