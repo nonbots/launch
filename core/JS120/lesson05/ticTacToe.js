@@ -31,11 +31,6 @@ class Board {
       this.marks[String(ptn)] = INIT_MARK;
     }
   }
-  // initMarks() {
-  //   for (let ptn = 1; ptn <= 9; ptn++) {
-  //     this.marks[String(ptn)] = INIT_MARK;
-  //   }
-  // }
   displayRow(mark1, mark2, mark3) {
     console.log(`   |   |   `);
     console.log(` ${mark1} | ${mark2} | ${mark3} `);
@@ -177,12 +172,10 @@ class Game {
   initGame() {
     this.human = new Human();
     this.computer = new Computer();
-    // this.board = new Board();
   }
   initRound() {
     this.setFirstPlayer();
     this.curPlayer = this.firstPlayer;
-    // this.board.initMarks();
     this.board = new Board();
     this.displayScores();
   }
@@ -203,7 +196,7 @@ class Game {
       this.curPlayer = this.alternatePlayer();
     }
   }
-  play() {
+  playGame() {
     this.displayIntroInfo();
     do {
       this.initGame();
@@ -237,6 +230,7 @@ class Game {
       this.firstPlayer = P_COMP;
     }
   }
+  ///move tot player
   getValidUserInput(msg) {
     this.displayMsg(msg);
     let input = RL.question("Your answer: ");
@@ -281,7 +275,7 @@ class Game {
     return isWinnerFound;
   }
   alternatePlayer() {
-    console.clear();
+    this.clearDisplay();
     return this.curPlayer === P_HUMAN ? P_COMP : P_HUMAN;
   }
   displayRoundRs() {
@@ -300,4 +294,4 @@ class Game {
 Object.assign(Game.prototype,DisplayMsg);
 
 const game = new Game();
-game.play();
+game.playGame();
