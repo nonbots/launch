@@ -71,7 +71,6 @@ Player.INIT_SCORE = 0;
 Player.prototype.setScore = function() {
   this.score += 1;
 };
-
 Player.prototype.getScore = function() {
   return this.score;
 };
@@ -82,7 +81,7 @@ function Human() {
 }
 Human.INPUT_NO = 'n';
 Human.INPUT_YES = 'y';
-Human.P_HUMAN = "human";
+Human.P_HUMAN = 'human';
 
 Human.prototype = Object.create(Player.prototype);
 Human.prototype.constructor = Human;
@@ -108,9 +107,9 @@ function Game() {
   this.firstPlayer = null;
   this.newGame = null;
   this.curPlayer = null;
-  this.human = new Human();
-  this.computer = new Computer();
-  this.board = new Board();
+  this.human = null;
+  this.computer = null;
+  this.board = null;
 }
 
 Game.WIN_KEY_COMBOS = [
@@ -286,6 +285,4 @@ Game.prototype.getUserPtn = function() {
 Object.assign(Game.prototype,DisplayMsg);
 
 const game = new Game();
-// const board = new Board();
-// board.displayBoard();
 game.playGame();
