@@ -11,6 +11,7 @@ class Deck {
     this.deck = Deck.SUIT_NAMES.map(suitName =>
       Deck.SUIT_CARDS.map(suitCard =>
         suitCard + " of " + suitName)).flat();
+    // this.deck = ['Ace of Clubs', 'Three of Clubs', 'Nine of Clubs'];
   }
   getShuffledDeck() {
     for (let shuffle = 1; shuffle <= 3; shuffle++) {
@@ -83,16 +84,14 @@ class Player {
   getBusted() {
     return this.busted;
   }
-  // deal(deck,val) {
-  //   this.addHand(deck);
-  //   this.addTotal(val);
-  // }
 }
 
 class User extends Player {
   static CONTINUE = 'c';
   static YES = 'y';
   static NO = 'n';
+  static HIT = 'h';
+  static STAY = 's';
   constructor() {
     super();
     this.choice = null;
@@ -105,10 +104,6 @@ class User extends Player {
   isStay(choice) {
     return choice === User.STAY;
   }
-  // initHand(user, dealer) {
-  //   this.deal(user);
-  //   this.deal(dealer);
-  // }
 }
 
 class Dealer extends Player {
@@ -120,46 +115,50 @@ class Dealer extends Player {
 class Game {
   static INSTRUCTIONS = [MSG.instruction1, MSG.instruction2, MSG.instruction3,
     MSG.instruction4, MSG.instruction5, MSG.instruction6, MSG.instruction7];
-  static WIN_NUM = 5;
+  static WIN_NUM = 2;
   static MAG_NUM = 21;
-  static HIT = 'h';
-  static STAY = 's';
   constructor() {
     this.user = null;
     this.dealer = null;
     this.deck = null;
     this.newGame = null;
   }
-  play() {
+  initGame() {
+    this.user = new User();
+    this.dealer = new Dealer();
+    // this.deck = new Deck();
+  }
+  initRound() {
+    this.deck = new Deck();
+    this.deck.getShuffledDeck();
+    this.resetHandTotal();
+    this.initHand(this.deck);
+    this.displayDealResult();
+  }
+  playRound() {
+    while (true) {
+      this.user.choice = this.getValidInput(MSG.stayHit, MSG.invalidStayHit, User.HIT, User.STAY);
+      this.hit(this.user);
+      if (this.user.isStay(this.user.choice) || this.isBusted(this.user)) break;
+    }
+    if (this.isBusted(this.user)) {
+      this.incrementWinnerScore(MSG.lost);
+      this.displayRoundResult(MSG.lost);
+    } else {
+      this.dealersPlay();
+    }
+  }
+  playGame() {
+    this.displayIntro();
     do {
-      this.displayIntro();
-      // let ledger = initLedger();
-      this.user = new User();
-      this.dealer = new Dealer();
+      this.initGame();
       while (!this.isGameWinnerFound()) {
-        // console.log(this.user.score, this.dealer.score, "SCORES");
-        this.deck = new Deck();
-        this.deck.getShuffledDeck();
-        this.resetHandTotal();
-        this.initHand(this.deck);
-        this.displayDealResult();
-        while (true) {
-          this.user.choice = this.setValidInput(MSG.stayHit, MSG.invalidStayHit, Game.HIT, Game.STAY);
-          console.log("AFTER SETVALIDINPUT");
-          this.hit(this.user);
-          this.displayDealResult();
-          if (this.user.isStay(this.user.choice) || this.isBusted(this.user)) break;
-        }
-        if (this.isBusted(this.user)) {
-          this.incrementWinnerScore(MSG.lost);
-          this.displayRoundResult(MSG.lost);
-        } else {
-          this.dealersPlay();
-        }
+        this.initRound();
+        this.playRound();
       }
       this.displayGameResult();
-      this.newGame = this.setValidInput(MSG.newGame, MSG.invalidNewGame, User.YES, User.NO);
-    } while (this.user.newGame === User.YES);
+      this.newGame = this.getValidInput(MSG.newGame, MSG.invalidNewGame, User.YES, User.NO);
+    } while (this.newGame === User.YES);
   }
   displayGameResult() {
     if (this.user.getScore() > this.dealer.getScore()) {
@@ -179,27 +178,21 @@ class Game {
     return this.deck.getDeck().shift();
   }
   hit(player) {
-    console.log("IN HIT");
     if (player.isHit(player.choice)) {
       this.deal(player);
+      this.displayDealResult();
     }
   }
-  setValidInput(msg, invalidMsg, validInput1, validInput2) {
-    console.log("SETVALIDINPUT");
+  getValidInput(msg, invalidMsg, validInput1, validInput2) {
     let input = this.getInput(msg, MSG.inputMkr).toLowerCase();
-    console.log("INPUT1", input);
     while (input !== validInput1 && input !== validInput2) {
-      console.log("WHILE");
       input = this.getInput(invalidMsg, MSG.inputMkr);
     }
-    console.log("VALID");
-    // console.clear();
+    console.clear();
     return input;
   }
   getInput(msg, marker) {
     this.displayMsg(msg);
-    console.log("GETINPUT");
-    console.log("GINPUT", RL.question(marker));
     return RL.question(marker);
   }
   next(msg) {
@@ -207,13 +200,16 @@ class Game {
     while (input !== User.CONTINUE) {
       input = this.getInput(msg, MSG.nextMkr);
     }
-    // console.clear();
+    console.clear();
   }
   resetHandTotal() {
     this.user.hand = [];
     this.user.total = 0;
     this.dealer.hand = [];
     this.user.total = 0;
+    this.user.busted = false;
+    this.dealer.total = 0;
+    this.dealer.busted = false;
   }
 
   setTotal(player) {
@@ -224,37 +220,33 @@ class Game {
     }
   }
   initHand() {
-    for (let card = 1; card <= 1; card += 1) {
+    for (let card = 1; card <= 2; card += 1) {
       this.deal(this.user);
       this.deal(this.dealer);
     }
   }
   setBusted(player) {
-    let curTotal = this.evalTotal(player);
-    if (curTotal > Game.MAG_NUM) player.busted = true;
+    let total = this.evalTotal(player);
+    if (total > Game.MAG_NUM) player.busted = true;
   }
   isBusted(player) {
     this.setBusted(player);
     return player.getBusted();
   }
   displayRoundResult(msg) {
-    // console.clear();
-    this.evalTotal(this.dealer);
-    this.displayStats(MSG.uTotal, MSG.dTotal, MSG.uScore, MSG.dScore,this.dealer.total);
+    console.clear();
+    let total = this.evalTotal(this.dealer);
+    this.displayStats(MSG.uTotal, MSG.dTotal, MSG.uScore, MSG.dScore, total);
     console.log(`${MSG.halfDiv}${msg}${MSG.halfDiv}`);
     this.displayHandTotal(this.user);
     this.displayHandTotal(this.dealer);
     this.next(MSG.nextRound);
   }
   evalTotal(player) {
-    console.log("PLAYER", player);
     let hand = player.getHand();
     let aceCards = hand.filter(card => this.nameToKeyVal(card, Deck.SUIT_MAP) === "ace");
-    console.log("IN EVALTOTAL BEFORE", player.total);
     let total = this.addAceByFunc(player, aceCards);
-    console.log("IN EVALTOTAL AFTER", player.total);
-    player.total > Game.MAG_NUM ? player.total = this.addAceByOne( player, aceCards) : player.total = total;
-    
+    return total > Game.MAG_NUM ?  this.addAceByOne( player, aceCards) : total;
   }
   addAceByOne(player, aceVals) {
     let total = player.getTotal();
@@ -274,7 +266,6 @@ class Game {
     return (total + 11) <= Game.MAG_NUM  ? 11 : 1;
   }
   nameToKeyVal(card) {
-    // console.log(card);
     let cardKey = card.split(" ")[0];
     return Deck.SUIT_MAP[cardKey];
   }
@@ -291,11 +282,11 @@ class Game {
     return this.user.getScore() === Game.WIN_NUM || this.dealer.getScore() === Game.WIN_NUM;
   }
   dealersPlay() {
-    this.evalTotal(this.dealer);
+    let dealerTotal = this.evalTotal(this.dealer);
     while (true) {
-      if (this.dealer.total > 15 || this.this.isBusted(this.dealer)) break;
-      this.dealer.deal(this.deck);
-      this.dealer.total = this.evalTotal(this.dealer);
+      if (dealerTotal > 15 || this.isBusted(this.dealer)) break;
+      this.deal(this.dealer);
+      dealerTotal = this.evalTotal(this.dealer);
     }
     if (this.isBusted(this.dealer)) {
       this.user.addScore();
@@ -311,14 +302,12 @@ class Game {
     if (result === MSG.lost) this.dealer.addScore();
   }
   getStayResult() {
-    this.user.total = this.evalTotal(this.user);
-    this.dealer.total = this.evalTotal(this.dealer);
-    if (this.user.total === this.dealer.total) return MSG.tie;
-    return this.user.total < this.dealer.total ? MSG.lost : MSG.won;
+    let userTotal = this.evalTotal(this.user);
+    let dealerTotal = this.evalTotal(this.dealer);
+    if (userTotal === dealerTotal) return MSG.tie;
+    return userTotal < dealerTotal ? MSG.lost : MSG.won;
   }
   displayDealResult() {
-    // console.log("IN DISPLAYDEALRESULT");
-    console.log("DISPLAYDEALRESULT", this.user.total);
     let cards = [this.dealer.hand[0]];
     let cardVal = this.revealCard();
     this.displayStats(MSG.uTotal, MSG.dCard, MSG.uScore, MSG.dScore, cardVal);
@@ -332,10 +321,7 @@ class Game {
     this.displayMsg(`${msg}${this.formatString(cards)}`);
   }
   revealCard() {
-    // console.log("IN REVEALCARD");
-    // console.log("DEALER HAND",this.dealer.getHand());
     let card = this.dealer.getHand()[0];
-    // console.log("DEALER CARD", card);
     return this.nameToKeyVal(card, Deck.SUIT_MAP);
   }
   formatString(cards) {
@@ -346,10 +332,9 @@ class Game {
     return formatStr;
   }
   displayStats ( uLabel1, dLabel1, uLabel2, dLabel2, val) {
-    console.log("DISPLAYSTATS", this.user.total);
-    this.evalTotal(this.user);
+    let userTotal = this.evalTotal(this.user);
     console.log(MSG.curStats);
-    console.log(`${uLabel1} ${this.user.total}      ${dLabel1} ${val}`);
+    console.log(`${uLabel1} ${userTotal}      ${dLabel1} ${val}`);
     console.log(`${uLabel2} ${this.user.score}       ${dLabel2} ${this.dealer.score}`);
   }
   displayMsg(msg) {
@@ -358,4 +343,4 @@ class Game {
 }
 
 const game = new Game();
-game.play();
+game.playGame();
