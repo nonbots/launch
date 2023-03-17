@@ -221,7 +221,13 @@ function evalTotal(ledger, player) {
   let total = addAceByFunc(ledger, player, aceCards);
   return total > MAG_NUM ? addAceByOne(ledger, player, aceCards) : total;
 }
-
+function addAceByFunc(ledger, player, aceVals) {
+  let total = getLedgerVal(ledger, player, TOTAL);
+  for (let val = 0; val < aceVals.length; val++) {
+    total += defineAce(total);
+  }
+  return total;
+}
 function nameToKeyVal(card, SUIT_MAP) {
   let cardKey = card.split(" ")[0];
   return SUIT_MAP[cardKey];
@@ -231,14 +237,6 @@ function addAceByOne(ledger, player, aceVals) {
   let total = getLedgerVal(ledger, player, TOTAL);
   for (let val = 0; val < aceVals.length; val++) {
     total += 1;
-  }
-  return total;
-}
-
-function addAceByFunc(ledger, player, aceVals) {
-  let total = getLedgerVal(ledger, player, TOTAL);
-  for (let val = 0; val < aceVals.length; val++) {
-    total += defineAce(total);
   }
   return total;
 }
