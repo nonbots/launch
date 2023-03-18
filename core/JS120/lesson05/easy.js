@@ -1,125 +1,331 @@
-/*
- Name the Constructor 
- Update the following code so that, instead of logging the values, each statement logs the name of the constructor to which it belongs
-*/
-
-// console.log(new String("Hello").constructor.name);
-// console.log([1,2,3].constructor.name);
-
-// console.log("FIRST",Object.getPrototypeOf([1,2,3]).constructor.name);// uses the Object method to access the prototype object which is Object itself to access the constructor method 
-// console.log({name: 'Srdjan'}.constructor.name); /// looks up the prototype chain at  Object to access the constructor method
-// console.log({name: 'Srdjan'}.hasOwnProperty('constructor'));
-// console.log(Object.hasOwnProperty('constructor'));
-// console.log(Object.prototype.hasOwnProperty('constructor'));
-// console.log(Object);//*****Object is a constructor function that creates instances ****
-/*
-/*
-constuctor function / class
-*** Because in JS function are objects 
-function Player() {
-  this.name  // this refers to the property that belongs to Player 
+//Retangle
+class Rectangle {
+  constructor(width, length) {
+    this.width = width;
+    this.length = length;
+  }
+  getWidth() {
+    return this.width;
+  }
+  getLength() {
+    return this.length;
+  }
+  getArea(){
+    return this.width * this.length;
   }
 }
-the constructor function player has a prototype property that can be used to store common methods that all players share
-*/
-function player() {
 
+class Square extends Rectangle {
+  constructor(length){
+    super(length,length);
+  }
 }
-//whenever a function is declared and since functions are objects in javascript the function inherits the properties of the Object.prototype
-// console.log("PLAYER===>", player);
-// console.log("PLAYER===>", player.prototype);
-// console.log("PLAYER===>", Object.getPrototypeOf(player.prototype));
-// console.log("PLAYER===>", player.prototype.hasOwnProperty(constructor));
+// let square = new Square(5);
+// console.log(`area of square = ${square.getArea()}`); // area of square = 25
+// let rect = new Rectangle(4, 5);
 
-// console.log(Object.prototype.constructor);// 
+// console.log(rect.getWidth()); // 4
+// console.log(rect.getLength()); // 5
+// console.log(rect.getArea()); // 20
 
+//Fake Cat
+// class Cat {
+//   constructor(name) {
+//     this.name = name;
+//   }
+//   speaks() {
+//     return `${this.name} says meowwww.`;
+//   }
+// }
 
-// let obj = {};
-// console.log(Object.getPrototypeOf(obj));
-// console.log("OBJ_PROTO", Object.prototype);
-// console.log("HERE", Object.getPrototypeOf(Object));
+// let fakeCat = Object.create(Cat.prototype); // cat.prototype only stores methods?
+// console.log(fakeCat instanceof Cat); // logs true
+// console.log(fakeCat.name);           // logs undefined
+// console.log(fakeCat.speaks());       // logs undefined says meowwww.
+// console.log(Cat.prototype.hasOwnProperty('speaks'));
+// console.log(Cat.prototype.constructor.name);
 
-// console.log("HERE", Object.getPrototypeOf(Object));
-// what happens when I create a function 
+//Complete the Program - Cats!
+// class Pet {
+//   constructor(name, age, description) {
+//     this.name = name;
+//     this.age = age;
+//     this.description = description;
+//   }
+//   info() {
+//     return `My cat ${this.name} is ${this.age} and has ${this.description} fur.`
+//   }
+// }
 
-///MDN
-//// contructor method is for creting and initializing an object instance of that class 
+// class Cat extends Pet {
 
-//use typeof an array method isArray to get type 
-//must wrap the sting into an object type 
-//get the constructor by accessing the prototype of the object and getting the property of contructor 
+// }
 
-/*
-PROTOTYPAL INHERITANCE 
-- the object that you inherit properties and methods from is called the prototype.
-- the inheriting object doesn't receive any properteies or methods of its own. It delegates property and method access to its prototype.
-** JS objects us an internal [[Prototype]] property to keep track of their prototype. When inheritance takes place the new object's [[Prototype]] property gets assigned to the prototype object.
-** [[Protottype]] is an internal property and can not be access directly. However you can access and replace its value with Object methods.
-  - Object.getPrototypeOf
-  - Object.setPrototypeOf
-** objects hold reference to their prototype objects through their internal [[Prototype]] property
+// let pudding = new Cat('Pudding', 7, 'black and white');
+// let butterscotch = new Cat('Butterscotch', 10, 'tan and white');
 
-OBJ => address => prototype
-*/
-//  let a = {}
-// console.log(Object.getPrototypeOf(a))
-/*
-The DEFAULT PROTOTYPE OBJECT is the prototype for all objects created by using the object literal syntax.
-** The DEFAULT PROTOTYPE OBJECT is the FUNCTION PROTOTYPE of the OBJECT CONSTRUCTOR, OBJECT.PROTOTYPE
-** OBJECT.PROTOTYPE provides the DEFAULT PROTOTYPE
-*/
+// console.log(pudding.info());
+// console.log(butterscotch.info());
 
-/*
-JS has string primitives and string objects 
-  - JS in the background warps the string primitive in a string object so that it has access to the methods from the string constructor
-*/
-// console.log(Object.prototype.constructor.name);
+//Animals
 
-/*
-- Create an emtpy class named Cat
-- create an instance of Cat and assign it to a variable named kitty
-- add a constructor method that logs to the console "I'm a cat!" when new Cat object id initialized
-*/
-class Cat {
+// class Animal {
+//   constructor(name, age, legs, species, status) {
+//     this.name = name;
+//     this.age = age;
+//     this.legs = legs;
+//     this.species = species;
+//     this.status = status;
+//   }
+//   introduce() {
+//     return `Hello, my name is ${this.name} and I am ${this.age} years old and ${this.status}.`;
+//   }
+// }
+
+// class Dog extends Animal {
+//   constructor(name, age, status, master) {
+//     super(name, age, 4, "dog", status);
+//     this.master = master;
+//   }
+//   greetMaster() {
+//     return `Hello ${this.master}! Woof, woof!`;
+//   }
+// }
+
+// class Cat extends Animal {
+//   constructor(name, age, status) {
+//     super(name, age, 4, "cat", status);
+//   }
+//   introduce() {
+//     return super.introduce() + " Meow meow!";
+//   }
+// }
+
+// let cat = new Cat("Pepe", 2, "happy");
+// console.log(cat.introduce());
+// console.log(cat.introduce() === "Hello, my name is Pepe and I am 2 years old and happy. Meow meow!");
+// // logs true
+
+// let dog = new Dog("Doggie", 4, "sad", "Dan");
+// console.log(dog.greetMaster());
+
+// class Vehicle {
+//   constructor (make, model) {
+//     this.make = make;
+//     this.model = model;
+//   }
+//   info () {
+//     return `${this.make} ${this.model}`;
+//   }
+// }
+
+// class Car extends Vehicle {
+//   getWheels() {
+//     return 4;
+//   }
+// }
+// class Motorcycle extends Vehicle {
+//   getWheels() {
+//     return 2;
+//   }
+// }
+// class Truck extends Vehicle {
+//   constructor(make, model, payload) {
+//     super(make, model);
+//     this.payload = payload;
+//   }
+//   getWheels() {
+//     return 6;
+//   }
+// }
+
+// class Person {
+//   greeting (text) {
+//     console.log(text);
+//   }
+// }
+
+// class Shouter extends Person {
+//   greeting (text) {
+//     super.greeting(text.toUpperCase());
+//   }
+// }
+// let person = new Person();
+// let shouter = new Shouter();
+
+// person.greeting("Hello. It's very nice to meet you."); // Hello. It's very nice to meet you
+// shouter.greeting("Hello my friend."); 
+
+// class Person {
+//   constructor(name) {
+//     this.name = name;
+//   }
+
+//   gait() {
+//     return "strolls";
+//   }
+//   walk() {
+//     return `${this.name} ${this.gait()} forward`;
+//   }
+// }
+
+// class Cat {
+//   constructor(name) {
+//     this.name = name;
+//   }
+
+//   gait() {
+//     return "saunters";
+//   }
+//   walk() {
+//     return `${this.name} ${this.gait()} forward`;
+//   }
+// }
+
+// class Cheetah {
+//   constructor(name) {
+//     this.name = name;
+//   }
+
+//   gait() {
+//     return "runs";
+//   }
+//   walk() {
+//     return `${this.name} ${this.gait()} forward`;
+//   }
+// }
+
+// let mike = new Person("Mike");
+// console.log(mike.walk());
+// // "Mike strolls forward"
+
+// let kitty = new Cat("Kitty");
+// console.log(kitty.walk());
+// // "Kitty saunters forward"
+
+// let flash = new Cheetah("Flash");
+// console.log(flash.walk());
+// // "Flash runs forward"
+
+//create Pet class with type and name as constructor parameters
+//create Owner class with name asa constructor parameter
+//create Shelter class and adopt method that takes in instance of owner and pet
+//use an object to store shelter where the owner is the key and the pet are elements in an array as value
+//create a printAdoptions method that gets the key of the owner and iterates throug the value array of pets
+
+class Pet {
+  constructor(animal, name) {
+    this.animal = animal
+    this.name = name;
+  }
+  info() {
+    return `a ${this.animal} named ${this.name}`;
+  }
+}
+
+class Owner {
   constructor(name) {
     this.name = name;
+    this.pets = [];
   }
-  greeting() {
-    console.log(`Hello! My name is ${this.name}!`);
+
+  addPet(pet) {
+    this.pets.push(pet);
   }
-  static genericGreeting() {
-    console.log("Hello! I'm a cat!");
+
+  numberOfPets() {
+    return this.pets.length;
   }
-  rename(newName) {
-    this.name = newName;
-  }
-}
 
-let kitty = new Cat("Sophie");
-console.log(kitty.name); // Sophie
-kitty.rename('Chloe');
-console.log(kitty.name); // Chloe
-Cat.genericGreeting();
-// kitty.greeting();
-// console.log(Object.getPrototypeOf(Object.getPrototypeOf(kitty)));
-// console.log(Object.getPrototypeOf(Object.getPrototypeOf(kitty)));
-// console.log(Object.getPrototypeOf(Object));
-// let a= {};
-// console.log("FIRST",Object.getPrototypeOf(a));
-// console.log("FIRST",Object.getPrototypeOf(Object.getPrototypeOf(a)));
-
-// console.log(Object.getPrototypeOf(Object.prototype));
-
-// console.log(Object.getPrototypeOf(kitty));
-
-class Person{
-  constructor(name = "John Doe"){
-    this.name = name;
+  printPets() {
+    this.pets.forEach(pet => console.log(pet.info()));
   }
 }
 
-let person1 = new Person();
-let person2 = new Person("Pepe");
+class Shelter {
+  constructor() {
+    this.owners = {};
+  }
 
-console.log(person1.name); // John Doe
-console.log(person2.name); // Pepe
+  adopt(owner, pet) {
+    owner.addPet(pet);
+    if (!this.owners[owner.name]) {
+      this.owners[owner.name] = owner;
+    }
+  }
+
+  printAdoptions() {
+    for(let name in this.owners) {
+      console.log(`${name} has adopted the following pets:`);
+      this.owners[name].printPets();
+      console.log("");
+    }
+  }
+}
+
+// let butterscotch = new Pet('cat', 'Butterscotch');
+// let pudding      = new Pet('cat', 'Pudding');
+// let darwin       = new Pet('bearded dragon', 'Darwin');
+// let kennedy      = new Pet('dog', 'Kennedy');
+// let sweetie      = new Pet('parakeet', 'Sweetie Pie');
+// let molly        = new Pet('dog', 'Molly');
+// let chester      = new Pet('fish', 'Chester');
+
+// let phanson = new Owner('P Hanson');
+// let bholmes = new Owner('B Holmes');
+
+// let shelter = new Shelter();
+// shelter.adopt(phanson, butterscotch);
+// shelter.adopt(phanson, pudding);
+// shelter.adopt(phanson, darwin);
+// shelter.adopt(bholmes, kennedy);
+// shelter.adopt(bholmes, sweetie);
+// shelter.adopt(bholmes, molly);
+// shelter.adopt(bholmes, chester);
+// shelter.printAdoptions();
+// console.log(shelter.owners);
+// console.log(`${phanson.name} has ${phanson.numberOfPets()} adopted pets.`);
+// console.log(`${bholmes.name} has ${bholmes.numberOfPets()} adopted pets.`);
+
+class Banner {
+  constructor(message) {
+    this.message = message;
+    this.msgLength = this.message.length;
+  }
+
+  displayBanner() {
+    console.log([this.horizontalRule(), this.emptyLine(), this.messageLine(), this.emptyLine(), this.horizontalRule()].join("\n"));
+  }
+
+  horizontalRule() {
+    //repeat the length of the input string plus 2 and plus signs at the end 
+    // let length = this.message.length;
+    return `+-${"-".repeat(this.msgLength)}-+`;
+  }
+
+
+  emptyLine() {
+    //add "| " and length of input string " |"
+    // let length = this.message.length;
+    return  `| ${" ".repeat(this.msgLength)} |`;
+  }
+
+  messageLine() {
+    return `| ${this.message} |`
+  }
+}
+
+let banner1 = new Banner('To boldly go where no one has gone before.');
+banner1.displayBanner();
+// +--------------------------------------------+
+// |                                            |
+// | To boldly go where no one has gone before. |
+// |                                            |
+// +--------------------------------------------+
+let banner2 = new Banner('');
+banner2.displayBanner();
+// +--+
+// |  |
+// |  |
+// |  |
+// +--+
