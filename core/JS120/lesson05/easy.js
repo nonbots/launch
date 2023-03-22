@@ -315,15 +315,15 @@ class Banner {
   }
 }
 
-let banner1 = new Banner('To boldly go where no one has gone before.');
-banner1.displayBanner();
+// let banner1 = new Banner('To boldly go where no one has gone before.');
+// banner1.displayBanner();
 // +--------------------------------------------+
 // |                                            |
 // | To boldly go where no one has gone before. |
 // |                                            |
 // +--------------------------------------------+
-let banner2 = new Banner('');
-banner2.displayBanner();
+// let banner2 = new Banner('');
+// banner2.displayBanner();
 // +--+
 // |  |
 // |  |
