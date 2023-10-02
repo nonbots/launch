@@ -1,6 +1,6 @@
 const RL = require("readline-sync");
 const MSG = require("./twenty_one.json");
-
+//Deck.SUIT_NAMES
 class Deck {
   static SUIT_NAMES =  ["Clubs", "Diamonds", "Hearts", "Spaces"];
   static SUIT_CARDS = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven",
