@@ -1,5 +1,10 @@
 {
   "dependencies": {
     "seedrandom": "^3.0.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20"
   }
 }

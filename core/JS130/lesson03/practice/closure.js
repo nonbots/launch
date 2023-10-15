@@ -290,20 +290,22 @@ Strict mode is lexically scope meaing it only applies to code within the scope i
 You should use strict mode globally if you are starting on a whole new project. You should use strict mode locally if you are coding a new functionality on an exisiting project. You should not use strict mode, if you are modifying an existing functionality on an existing project that is not using strict mode. This could disable the functionality of the existing code.
 
 - What are concise property initializers?
-The variable name is used as the identifier (property name) as well as value that stores tha value or reference.  JS looks for a variable with the same name to use as the initial value and the variable name is also the property name.
+we use the the name of the property we want o initialize, and JS lookd for a variable with the same name to use as the initila value
 
 - What are concise methods?
 // eliminate the : and word function, JS use the function name as an identifer as well?
 
 - What is object/array destructuring?
-// takes an object or array and destructs the identifiers in the object to individual variables with the same name that stores the values set to the identifiers in the object. 
-// you can change the name of the variable from the identifier in the object by specifing in the declared destructed object then identifer you wan to change and setting it to a new name
+destructuring lets you perform multiple assignments in a single expression
+Object destructuring 
+// Object destructuring - the left hand side or parameter pulls out the need properties on from the object on the right hand side and store them in variables on the left hand side
+// Array destructiromg - the left hand side or paramater pulls out the need values from the array on the right hand side and stores them in variables on the left hand side. 
 // you can use destructuring in function parameters
 // use commas for skip any element you do not what to destruct in an array
 // use the rest syntax to group elements together to a another array 
 
 - What is spread/rest syntax?
-// spread syntax spread all the element in an object or array into individual element 
+// spread syntax spread all the element in an object or array into individual elements 
 // rest syntax groups all individual elenents in an object or array.
 
 */
@@ -314,7 +316,7 @@ Friday
 1. smaller and less complex self-contained pieces of code is easier to understand and work with 
 2. keeps cohesion of code over time since each module does a specific task
 3. allows for reuse of code
-4. allows for others to work on the same project withour conflict since each person is focus on a particular task
+4. 4. allows for others to work on the same project withour conflict since each person is focus on a particular task
 5. allows for encapsulation of data without explicitly using complicated use of closure 
 
 - How do you use and create CommonJS modules?
@@ -421,8 +423,9 @@ how much of our program code was tested by a test suit. coverage based on the pe
 /*
 Saturday
 - What is npm?
-node package manger  - part of the node installation; database that hosts hundreds of thousands of free code packages you download and use in your project. 
- 1. packages - node project with files and subdirectories inside it.
+npm database - part of the node installation; database that hosts hundreds of thousands of free code packages you download and use in your project. 
+node package manger - command the comes with node that manages your packages (dependencies) that you need for your project 
+ 1. packages - node project with files and subdirectories inside it. package of code that you can download, install, and use in your code or system
   a. types
     1. executable command in terminal
       jest 
@@ -433,23 +436,32 @@ node package manger  - part of the node installation; database that hosts hundre
     a. global - use  npm install `package` -g; on /usr/local/lib/node or /usr/local/lib/node_modules
     b. local  - use npm install lodash --save in the project directory you want create the node_modules folder and intall lodash inside it.
 
- 2. pakage.json file 
+ 2. package.json file 
  3. automating with scripts
 
 - What is npx and when do we use it?
 to run a local executable package instead of the global version. If the package is nowhere to be found it downloads and uses a temporary verson of the package.
 
+//Package.json and package-lock.json files allows you to work on a project with multilpe contributors or needs to fun on different machines.
+
 - What is the `package.json` file and how do you initialize one?
-A configuration file in JSON format that contains information about the project and the project’s dependencies. 
-run npm init to create a package.json file. You can add dependencies to the file  And save the file 
+A configuration file in JSON format that contains information about the project and the project’s dependencies and their versions, and store configuration settings. 
+
+run npm init to create a package.json file. 
+2 Ways to add dependency to package.json
+
+You can add dependencies to the file  And save the file 
 Run `npm install` to install the dependencies on the package.json directory and  builds a the package-lock.json
+- OR 
+- What does the `--save` flag do?
+installs your the package locally as a dev dependency in the modules folder that it first finds, if none is found it created one the directory that you ran your command in. 
+use npm install `name` --save to install package and save to both package.json and package-lock json
 
 
 - What is the `package.lock.json` file?
 Shows the versions of the packages that npm installed and dependencies of each package version. The next time npm installs, it looks at the package-lock.json and installs the versions specified there. You must add package-lock.json to git repo so others can install the correct package versions.
 
-- What does the `--save` flag do?
-Tells npm to save the add the package as a dependency in the package.json file.
+
 
 - Where are a programs dependencies stored?
 in the node_modules, if it doesn't find one in the directory hierarchy, it creates one in teh directory where the command was ran.
@@ -463,8 +475,11 @@ local modules only apply to projects with the local directly
 global modules apply to all projects (different versions of it are not needed)
 
 - What's the difference between `dependencies` vs `devDependencies`?
-devDependencies - development dependencies during the development phase of a project use --save-dev
-dependencies in the production phase of a project 
+devDependencies - development dependencies during the development phase of a project
+ use --save-dev to add development dependencies to the devDependencies property in package.json
+
+ dependencies property in package.json is for production use --save od -S or nothing at all in for mpm version 5 and plus since it is default to dependencies property
+
 
 - How can you remove a dependency from `package.json`?
 npm uninstall `package` --save
@@ -472,15 +487,22 @@ npm uninstall `package` --save-dev
 npm prune - updates dependencies in package.json
 
 - Where are npm scripts defined and why are they useful?
+automate repetitive tasks such as building a project, minifyinf files, and deleting temprorary files and folders
+you can you it to shorten a task by assigning the a series of commands to a shorter command. 
 in the scripts property in package.json
 scripts object takes a series of key/value pairs in which the key is the name of the script and the value is the script you want to run
 
 - What is transpilation and what are its advantages?
-the process of converting source code written in one language into another with a similar leve of abstraction to the original code. In JS, taking code written in a superset of JS and rewriting it as plain JS, newer to older version to work with runtime environments. Let developers use the newest version of JS without worry about compatiability of runtime.
+the process of converting source code written in one language into another with a similar level of abstraction to the original code. In JS, taking, code written in a superset of JS and rewriting it as plain JS, newer to older versions of JS to work with runtime environments. Let developers use the newest version of JS without worry about compatiability of runtime.
 
 - What is Babel and what does it do?
 a transpiler that converts es6 + code to es5 code
 install babel locally as dev 
+npx babel lib --out-dir dist --presets=@babel/preset-env
+- preset is a plug-in that hass all the information needed to compile one version of JS to another
+add the  --presets option to babel coman which tells Babel what presets it should us.
+- tells Babel to transiple all JS files in the lib directory and to output the resulting code with the same names to the dist directry.
+
 run npx babel `lib` --out-dir dist 
 transpiles all JS files in the lib directory and output it in the file in the dist directory
 
@@ -503,6 +525,25 @@ use try catch statment to catch errors
 
 - What is the event loop?
 if the stack is empty, the queue pops the callback to the stack to be executed unitl the queue is empty.
+*/
+
+//PACKAGING - upload your project into an npm module for others to use
+// 1. must have a package.json file (name, verson, and main fields)
+// 2. have specific directory structure (lib for all js file and test for all this files)
+// 3. publish your package (npm publish --access public)
+/*
+├── dist
+│   ├── todo.js
+│   └── todolist.js
+├── lib
+│   ├── todo.js
+│   └── todolist.js
+├── index.js
+├── node_modules
+├── package-lock.json
+├── package.json
+└── test
+    └── todolist.test.js
 */
 
 /////////////////////////BIND CLOSURES AND PFA//////////////////////////////
