@@ -90,7 +90,7 @@
 
 ## Pipling for Performance
 
-1. send multiple messages one after the other without waiting fro acknowledgements called pipelining 
+1. send multiple messages one after the other without waiting for acknowledgments called pipelining 
     - Go-back-N and Selective Repeat: sender implement a window respsenting the max number of messages that can be in the pipeline at any one time, once acknowledgements has been received for the messages it moves the window on.
 2. Finding a balance of reliability and peformance is a big part of TCP
 
@@ -148,25 +148,25 @@
 
 ## Disadvantages of TCP
 
-1. latency overhead in establishing a connection 
+1. latency overhead in establishing a connection
 2.  head-of-line blocking: relates to how issues in delivering or processing one message in a sequence of messages can delay or block the delivery or processing of the subsequenct messages in the sequence. Segments that come after it in the sequence can't be processed and need to be buffered until the retransmission has occurred.
 
-
-# User Datagram Protocol (UDP)
+# User Datagram Protocol (UDP) 
 1. The udp consists of a:
     - source and destination port: allows for multiplexing
     - data payload length
     - checksum 
+
 2. The protocol does not provide:
     - guarantee of message delivery
     - guarantee of message order 
     - built-in congestion avoidance or flow-control mechanisms
     - connection state stracking sinc it is connectionless protocol
 
- ## Case of UDP
- 1. The protocol provides speed and flexibility
- 2. connectionless protocol meaning applications can just start sending data without having to wait for a connection to be established 
- 3. no acknowledgement and retransmission means faster data delivery; data flows one way from sender to reciever and in no order
+## Case of UDP
+1. The protocol provides speed and flexibility
+2. Connectionless protocol meaning applications can just start sending data without having to wait for a connection to be established
+3. No acknowledgement and retransmission means faster data delivery; data flows one way from sender to reciever and in no order
  4. Gives developer more flexibility to implement there own services for relaiblity. UDP acts as a base template to build on. 
     - voice or video calling application.
     - online gaming
