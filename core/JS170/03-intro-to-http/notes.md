@@ -38,7 +38,46 @@
 
 # Some Background and Diagrams
 
+1. Establish a mental model of "where" you are when analyzing a piece of code. 
+    - client-server paradigm
+        - steps:
+            - client (browser) issues a request to the server. 
+            - server processes the request and sends a response to browser 
+        - server 
+            - server could be components distributed across many physical machines ans each of them could be comprosed of multiple machines and other intermediary machines, like load balancers, etc; large server infrastructures run into the hundreds or thousands of machines.
+            - simple server-side infrastucture: 
+                - web server: reponds to requests for static assets: files, images, css, js, etd.
+                - application server: application of business logic resides and more complicated requests are handled; where server-side code lives when deployed. Consults with a persistent data store to retrieve or create data. 
+
+                - data store  - a relation database or simple file that saves data in some format for later retrieval and processing. Used to persist our data between stateless request/repsonse cycles.
+                
+## HTTP over TCP/IP 
+
+1. HTTp on the apllicaito layer is concerned with structuring the messages taht are exchanged between the applications; TCP/IP is ensuring the request response cycle gets completed betweem your browser and the server.
+
 # URLs
+
+## URIs verse URLs 
+
+1. URI is a sequence of characters that identifies an abstract or physical resource
+
+2. URL is the subset of URIs that ins addition to identifying a resource, provide a means of location the resource by describing its primary access mechinaism, its network location
+
+## Schemes and Protocols 
+
+1. the scheme is the compoment of a URL that prepends the :. A specification for assigning identifiers within that scheme.
+
+2. a protocol refers to a familty of protocols rather than a specific protocol verison.
+
+## URLs and Filepaths
+
+1. In the early day of the Web, the URL repersented a physical file location on the Web server
+
+2. content now is dynamically generated which takes place on the server, where server-side freamworks or applicatio combinw templates with stored data to produce HTML pages which then form the body of a HTTP response. 
+
+3. Today there is a rise in popularity with client-side frameworks.
+
+4. The URL used is determined by the applicaiton logic not the file structure on the server. The involves URL pattern-matching to mathc the path to a predefined 'route' which then execute some specific logic. 
 
 # Practice Problems URL Components 
 
