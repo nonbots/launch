@@ -76,17 +76,18 @@
 ### Get Requests
 
 1. columns: 
-    - method: HTTP Request Method:
+    - method: HTTP Request 
+    :
         - GET: retrieving information 
             - initiated by clicking a link or via the address bar of a browser
-            -the browser also request for referenced resources witn the resource of HTML file. However, the HTTP tool will not
+            - the browser also request for referenced resources witn the resource of HTML file. However, the HTTP tool will not
     - Status: reponse status of a request; every request gets a response even if it's an error.
 
 ### Post Requests
 
 1. POST: initiate some action on the server or send data to a server.
 
-2. Request have headers and those include response headers. Location is a response header. The brower sess the Location header an automactically issues a brand new request to the specified URL. The Make a bet form is the response to the second request
+2. Request have headers and those include response headers. Location is a response header. The browser accesses the Location header and automactically issues a brand new request to the specified URL. The Make a bet form is the response to the second request
 
 ### HTTP Headers
 
@@ -98,7 +99,7 @@
         - connection - type of connection
     - respond: offers more infornation, meta data, about the resource being sent back.
         - content - encoding: type of encoding used on the data 
-        - sevrver - server name 
+        - server - server name 
         - location - notify client of new resource location 
         - content-type: type of data the response contains.
 
@@ -107,7 +108,7 @@
     - Status Code: it signifies the status of the request sent by the server
         - 200 - successful 
         - 302 - the requested recource has changed temporarily. Usually results on a redirect to another URL.
-            - when a resource is removed  to solution is to re-route the request from the original URL to a new URL in the Location respose header, known as redirect.
+            - when a resource is removed the solution is to re-route the request from the original URL to a new URL in the Location respose header, known as redirect.
             - For example, if you are not signed in, the browser will send you to a sign in page. After signing in you'll be redirected to the original page you were trying to access.
         - 400 - the requested resouce cannot be found 
 
@@ -175,11 +176,11 @@
 
 ### Same-origin policy 
 
-1. It permits unrestricted interaction between recources orighinating from the same origin,the schem, host and port, but restricts certain interactions between resources originating from different origins where resources are being a accessed programmmcatically using APIs. However, requests such as linking, redirects, or form submissions to different origins are typically allowed. As well as embedding of resources from other origins in scripts, css, images and other media, fonts, iframes. 
+1. It permits unrestricted interaction between recources originating from the same origin,the scheme, host and port, but restricts certain interactions between resources originating from different origins where resources are being a accessed programmmcatically using APIs. However, requests such as linking, redirects, or form submissions to different origins are typically allowed. As well as embedding of resources from other origins in scripts, css, images and other media, fonts, iframes. 
 
 2. However, restriction of cross-orgin requests can be an issue with web devekopers who have a legitimate need. 
     - CORS: cross-origin resource sharing; a mechanism that allows interations that would normally be resticted cross-origin to take place by adding new HTTP headers to allow servers to serve resources cross-orgin to certain specified origins. 
-        - the browser sends an Origin: example.com header to something.com when it requests the resources. If something.com wants to allow cross domain accrs to example.com then it must include the appropriate access-control-allow-origin header. if the sending browser sees the header in the response it will accept and process the response if not it will not accept or process the response.
+        - the browser sends an Origin: example.com header to something.com when it requests the resources. If something.com wants to allow cross domain across to example.com then it must include the appropriate access-control-allow-origin header. if the sending browser sees the header in the response it will accept and process the response if not it will not accept or process the response.
 
 ### Session Hijacking 
 

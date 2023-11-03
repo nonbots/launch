@@ -8,7 +8,6 @@
 
 2. The layer is focus on the structure of that message and the dat the it should contain.
 
-
 3. ISO: will not talk about the layers below since they will complicate the mental model
     - session layer
     - presentation layer 
@@ -19,7 +18,7 @@
 
 # HTTP and the Web
 
-1. The Web is a service hosted on a web server that can be accessed via the internet. The servers stores avast information system comprised of resources which are navigable by means of a URL, which takes you the appropriate web server. It is the primary means by which application interact with the resources which make up the web. 
+1. The Web is a service hosted on a web server that can be accessed via the internet. The servers stores a vast information system comprised of resources which are navigable by means of a URL, which takes you the appropriate web server. It is the primary means by which application interact with the resources which make up sthe web. 
 
 2. a network of sub-networks that transmits bits over different divices with the help of protocols to govern the transmission of data from source to distination device. 
 
@@ -65,9 +64,9 @@
 
 ## Schemes and Protocols 
 
-1. the scheme is the compoment of a URL that prepends the :. A specification for assigning identifiers within that scheme.
+1. the scheme is the compoment of a URL that prepends the :. 
 
-2. a protocol refers to a familty of protocols rather than a specific protocol verison.
+2. In the context of a URL there is a relationship in that  the scheme indentifies which protocol family should be used to access the resource. The protocol in this context refers to the family of protocols not the specific version. 
 
 ## URLs and Filepaths
 
@@ -77,10 +76,22 @@
 
 3. Today there is a rise in popularity with client-side frameworks.
 
-4. The URL used is determined by the applicaiton logic not the file structure on the server. The involves URL pattern-matching to mathc the path to a predefined 'route' which then execute some specific logic. 
+4. The URL used is determined by the applicaiton logic not the file structure on the server. The involves URL pattern-matching to match the path to a predefined 'route' which then execute some specific logic. 
 
 # Practice Problems URL Components 
 
 # The Request Response Cycle 
 
+1. What are the required components of an HTTP request? What are the additional optional components?
+    - start-line or request line 
+        - HTTP method: GET, POST, PUT, etc
+        - path (request-URI; the path to the resource and the optional parameters)
+        - HTTP version as of HTTP 1.0
+2.  What are the required components of an HTTP response? What are the additional optional components? 
+    - a status line with a status code.
+    - headers and body are option. (Why are headers and body optional)?
+
+3. What determines wheather a request should us GET or POST as its HTTP 
+    - GET retrieves data from the server
+    - POST changes the data in the server 
 # Summary 
