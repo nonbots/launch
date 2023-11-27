@@ -19,7 +19,7 @@ HTTP is an evolving protocol rather than something that is static and fixed.
 1. no version number 
 2. request - one line protocol (no headers or request body)
     - only GET method
-    - path to the resourde server
+    - path to the resource on server
 3. response - single hypertext document (no headers)
     - end of response is signalled by the server closing the connection.
 
